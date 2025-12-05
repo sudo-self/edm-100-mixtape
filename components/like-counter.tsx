@@ -5,14 +5,13 @@ import { Heart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import confetti from "canvas-confetti"
 
-const API_URL = "https://likes.jessejesse.workers.dev/"
+const API_URL = "/api/likes"
 
 export function LikeCounter() {
   const [likes, setLikes] = useState<number | null>(null)
   const [isLiking, setIsLiking] = useState(false)
   const [hasLiked, setHasLiked] = useState(false)
 
-  // Fetch initial like count
   useEffect(() => {
     const fetchLikes = async () => {
       try {
@@ -40,7 +39,6 @@ export function LikeCounter() {
 
     fetchLikes()
 
-    // Check if user has already liked
     const liked = localStorage.getItem("edm-100-liked")
     if (liked === "true") {
       setHasLiked(true)
@@ -73,7 +71,6 @@ export function LikeCounter() {
       setHasLiked(true)
       localStorage.setItem("edm-100-liked", "true")
 
-      // Trigger confetti
       confetti({
         particleCount: 200,
         spread: 70,
@@ -86,7 +83,6 @@ export function LikeCounter() {
       setHasLiked(true)
       localStorage.setItem("edm-100-liked", "true")
 
-      // Trigger confetti even on error
       confetti({
         particleCount: 200,
         spread: 70,
