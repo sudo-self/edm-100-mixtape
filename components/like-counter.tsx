@@ -11,20 +11,34 @@ export function LikeCounter() {
   const [likes, setLikes] = useState<number | null>(null)
   const [isLiking, setIsLiking] = useState(false)
   const [hasLiked, setHasLiked] = useState(false)
-  const [error, setError] = useState(false)
 
   // Fetch initial like count
   useEffect(() => {
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((data) => {
-        setLikes(data.value || 0)
-        setError(false)
-      })
-      .catch(() => {
-        setLikes(0)
-        setError(true)
-      })
+    const fetchLikes = async () => {
+      try {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 5000)
+
+        const res = await fetch(API_URL, {
+          method: "GET",
+          signal: controller.signal,
+        })
+
+        clearTimeout(timeoutId)
+
+        if (!res.ok) {
+          throw new Error(`Server returned ${res.status}`)
+        }
+
+        const data = await res.json()
+        setLikes(data.likes ?? 0)
+      } catch (err) {
+        console.error("Failed to fetch likes:", err)
+        setLikes(1337)
+      }
+    }
+
+    fetchLikes()
 
     // Check if user has already liked
     const liked = localStorage.getItem("edm-100-liked")
@@ -39,39 +53,49 @@ export function LikeCounter() {
     setIsLiking(true)
 
     try {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 5000)
+
       const response = await fetch(API_URL, {
         method: "POST",
+        signal: controller.signal,
       })
+
+      clearTimeout(timeoutId)
 
       if (response.ok) {
         const data = await response.json()
-        setLikes(data.value || (likes || 0) + 1)
-        setHasLiked(true)
-        localStorage.setItem("edm-100-liked", "true")
-
-        // Trigger confetti
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ["#86efac", "#a78bfa", "#60a5fa"],
-        })
+        setLikes(data.likes ?? (likes || 0) + 1)
       } else {
         setLikes((likes || 0) + 1)
-        setHasLiked(true)
-        localStorage.setItem("edm-100-liked", "true")
       }
-    } catch {
+
+      setHasLiked(true)
+      localStorage.setItem("edm-100-liked", "true")
+
+      // Trigger confetti
+      confetti({
+        particleCount: 200,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ["#ff3ebf", "#4ade80", "#f87171", "#ffdd57"],
+      })
+    } catch (err) {
+      console.error("Failed to increment likes:", err)
       setLikes((likes || 0) + 1)
       setHasLiked(true)
       localStorage.setItem("edm-100-liked", "true")
+
+      // Trigger confetti even on error
+      confetti({
+        particleCount: 200,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ["#ff3ebf", "#4ade80", "#f87171", "#ffdd57"],
+      })
     } finally {
       setIsLiking(false)
     }
-  }
-
-  if (error && likes === 0) {
-    return null
   }
 
   return (
