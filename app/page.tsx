@@ -58,13 +58,16 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-3 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
         <PlaylistTabs />
       </div>
+      
+{/* Footer */}
+<footer className="border-t border-border mt-16 sm:mt-24">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <a href="https://100.jessejesse.com" target="_blank" rel="noopener noreferrer" className="text-center text-xs sm:text-sm text-pink-400 hover:text-indigo-500 hover:underline text-muted-foreground">
+      100.JesseJesse.com
+    </a>
+  </div>
+</footer>
 
-      {/* Footer */}
-      <footer className="border-t border-border mt-16 sm:mt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-          <p className="text-center text-xs sm:text-sm text-muted-foreground">Github.com/sudo-self</p>
-        </div>
-      </footer>
     </main>
   )
 }
