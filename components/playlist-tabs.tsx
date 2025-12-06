@@ -20,7 +20,7 @@ export function PlaylistTabs() {
           className="gap-2 transition-all w-full xs:w-auto"
         >
           <Music className="w-4 h-4 sm:w-5 sm:h-5" />
-          <span className="font-semibold text-sm sm:text-base">Apple Music</span>
+          <span className="font-semibold text-sm sm:text-base">Listen on Apple Music</span>
         </Button>
         <Button
           variant={activeTab === "github" ? "default" : "ghost"}
@@ -29,7 +29,7 @@ export function PlaylistTabs() {
           className="gap-2 transition-all w-full xs:w-auto"
         >
           <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-          <span className="font-semibold text-sm sm:text-base">GitHub</span>
+          <span className="font-semibold text-sm sm:text-base">FREE on GitHub</span>
         </Button>
       </div>
 
@@ -72,7 +72,7 @@ export function PlaylistTabs() {
       {/* Playlist Info */}
       <div className="text-center space-y-2 px-4">
         <p className="text-xs sm:text-sm text-muted-foreground">
-          {activeTab === "apple" ? "Sign in to stream the full playlist" : "Explore the GitHub repository"}
+          {activeTab === "apple" ? "Sign in to Apple Music" : "Listen FREE on GitHub"}
         </p>
       </div>
     </div>
