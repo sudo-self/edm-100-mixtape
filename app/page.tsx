@@ -62,11 +62,17 @@ export default function Home() {
 {/* Footer */}
 <footer className="border-t border-border mt-16 sm:mt-24">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-    <a href="https://100.jessejesse.com" target="_blank" rel="noopener noreferrer" className="text-center text-xs sm:text-sm text-pink-400 hover:text-indigo-500 hover:underline text-muted-foreground">
+    <a 
+      href="https://100.jessejesse.com" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="block text-center text-xs sm:text-sm text-pink-400 hover:text-indigo-500 hover:underline text-muted-foreground"
+    >
       100.JesseJesse.com
     </a>
   </div>
 </footer>
+
 
     </main>
   )
